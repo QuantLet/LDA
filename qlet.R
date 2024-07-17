@@ -30,14 +30,19 @@ dict_topic = dictionary(list(datascience=c("data mining", "analytics", "cluster"
                              fintech=c("api", "regulatory", "regulatory technology", "regtech", "KYC", "AML", "fintech", "fin tech", "3D secure", "Chargeback", "Crowdfunding"),
                              blockchain=c("blockchain", "block chain", "block*", "coin", "consensus", "POW", "POS", "Proof of Work", "Proof of Stake", "Contract", "Smart Contract", "Cryptography", "Decentralization", "Fork", "Node", "Hash", "Mining", "Byzantine"),
                              explainableai=c('Explainable AI', "XAI", "Transparency", "Audit*", "Transparent", "Concept*", "Concept Explanation", "Interpretability", "Econometric*"),
-                             machinelearning=c("Machine Learning", "ML", "AI", "Boost", "Tune", "Neural Network", "NN", "Supervise", "Classification", "Classifier", "Learner", "Robot", "Overfit*", "SVM", "Support Vector Machine"),
+                             machinelearning=c("Machine Learning", "ML", "AI", "Boost", "Tune", "Neural Network", "ARIMA", "NN", "Neural Network", "Deep Learning", "LSTM","Supervise", "Classification", "Classifier", "Learner", "Robot", "Overfit*", "SVM", "Support Vector Machine", "Stationarity", "Gradient Boost", "Boost", "Logistic Regression"),
                              cryptocurrency=c("crypto*", "Bitcoin", "BTC", "Ether*", "ETH", "Crypto Exchange", "Digital Currency", "Digicash", "Digital Wallet", "Wallet", "FIAT", "NFT", "Non-fundigble Token", "Stable Coin", "Stablecoin", "Tether", "USDT")
 ))
 print(dict_topic)
 
 
 qj = jsonlite::fromJSON(qlet_data)
-qj_unique = qj[qj$repo_name == unique(qj$repo_name),]
+#qj_unique = qj[qj$repo_name == unique(qj$repo_name),]
+
+print("attention here")
+# Instead of omitting information, we could also just merge the information that we have from the duplicate entries and afterwards select unique relevant_text statements
+# So merge keywords and description of all rows where the identifier "repo_name" is the same
+
 
 # quantlet names are not unique!
 qj_unique = qj[!duplicated(qj[,'repo_name']),]
@@ -77,11 +82,15 @@ table(dfmat_news$topic2)
 un_keywords = unique(qj$keywords)
 
 
+# Inspect outcome for individual topics
+tops = topics(tmod_slda)
+tops[tops %in% c('cryptocurrency')]
+
+# Save Output
+qj_unique$assigned_topic = tops
+write.csv(qj_unique, file = 'qlet_topics_assigned.csv')
 
 
-##
 
-
-
-
-
+# For Comparison
+#old_results = qj_unique
