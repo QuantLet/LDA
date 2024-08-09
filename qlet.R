@@ -26,11 +26,11 @@ qlet_data = 'data/Quantlet_Database.json' #Quantlet json
 
 
 # Define dictionary
-dict_topic = dictionary(list(datascience=c("data mining", "analytics", "cluster", "SQL", "predict*", "communication", "data clean*", "data science", "data management", "NLP", "natural language processing", "data visualization", "business intelligence", "BI"), 
+dict_topic = dictionary(list(datascience=c("data mining", "analytics", "cluster", "Monte Carlo", "SQL", "predict*", "communication", "data clean*", "data science", "data management", "NLP", "natural language processing", "data visualization", "business intelligence", "BI", "random number", "stationary", "regression"), 
                              fintech=c("api", "regulatory", "regulatory technology", "regtech", "KYC", "AML", "fintech", "fin tech", "3D secure", "Chargeback", "Crowdfunding"),
                              blockchain=c("blockchain", "block chain", "block*", "coin", "consensus", "POW", "POS", "Proof of Work", "Proof of Stake", "Contract", "Smart Contract", "Cryptography", "Decentralization", "Fork", "Node", "Hash", "Mining", "Byzantine"),
-                             explainableai=c('Explainable AI', "XAI", "Transparency", "Audit*", "Transparent", "Concept*", "Concept Explanation", "Interpretability", "Econometric*"),
-                             machinelearning=c("Machine Learning", "ML", "AI", "Boost", "Tune", "Neural Network", "ARIMA", "NN", "Neural Network", "Deep Learning", "LSTM","Supervise", "Classification", "Classifier", "Learner", "Robot", "Overfit*", "SVM", "Support Vector Machine", "Stationarity", "Gradient Boost", "Boost", "Logistic Regression"),
+                             explainableai=c('Explainable AI', "Explain*","XAI", "Transparency", "Audit*", "Transparent", "Concept*", "Concept Explanation", "Interpretability", "Econometric*"),
+                             machinelearning=c("Machine Learning", "ML", "AI", "*Boost", "Tune", "Neural Network", "ARIMA", "NN", "Neural Network", "Deep Learning", "predict*", "LSTM","Supervise", "Classification", "Classifier", "Learner", "Robot", "Overfit*", "SVM", "Support Vector Machine", "Stationarity", "*starionar*", "Gradient Boost", "Boost", "Logistic Regression", "regression", "LDA", "Latent", "Topic Model*"),
                              cryptocurrency=c("crypto*", "Bitcoin", "BTC", "Ether*", "ETH", "Crypto Exchange", "Digital Currency", "Digicash", "Digital Wallet", "Wallet", "FIAT", "NFT", "Non-fundigble Token", "Stable Coin", "Stablecoin", "Tether", "USDT")
 ))
 print(dict_topic)
@@ -42,7 +42,14 @@ qj = jsonlite::fromJSON(qlet_data)
 print("attention here")
 # Instead of omitting information, we could also just merge the information that we have from the duplicate entries and afterwards select unique relevant_text statements
 # So merge keywords and description of all rows where the identifier "repo_name" is the same
+# pretty good idea actually.
+# The other option would be to go line-by-line and only consider the relevant text of each row for itself. 
 
+for(curr_repo in unique(qj$repo_name)[1:30]){
+  print(curr_repo)
+  print(qj[qj$repo_name == curr_repo,'keywords'])
+  print('---')
+}
 
 # quantlet names are not unique!
 qj_unique = qj[!duplicated(qj[,'repo_name']),]
