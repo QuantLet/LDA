@@ -27,8 +27,8 @@ text_field_var = 'keywords'
 #text_field_var = 'relevant_text' 
 
 # Static
-qlet_data = 'data/Quantlet_Database.json' # Quantlet json
-out_file = 'qlet_topics_assigned_v2.csv' # Output file name
+qlet_data = 'data/cards.json' #Old Dataset: 'data/Quantlet_Database.json' # Quantlet json
+out_file = 'qlet_topics_assigned_v3.csv' # Output file name
 
 
 # Define dictionary
