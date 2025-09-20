@@ -1,4 +1,4 @@
-git sfrom sqlalchemy import create_engine # using: pip install sqlalchemy==1.4.46
+from sqlalchemy import create_engine # using: pip install sqlalchemy==1.4.46
 import pandas as pd
 from config import HOST, USER, PASSWORD, DB
 
